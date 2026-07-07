@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SITTHA.S | Portfolio</title>
+<style>
+  :root{
+    --glass-fill: rgba(255,255,255,0.10);
+    --glass-fill-strong: rgba(255,255,255,0.16);
+    --glass-rim: rgba(255,255,255,0.55);
+    --glass-rim-dim: rgba(255,255,255,0.14);
+    --ink: #f5f5f7;
+    --ink-dim: #b8b9c2;
+    --accent: #0a84ff;
+    --accent-2: #bf5af2;
+    --radius: 28px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    overflow-x:hidden;
+    background: #0b0c18;
+  }
+
+  /* ---------- Background: liquid gradient field ---------- */
+  .bg{
+    position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(circle at 20% 20%, #3a2e8c 0%, transparent 45%),
+      radial-gradient(circle at 80% 15%, #0a5cff 0%, transparent 50%),
+      radial-gradient(circle at 50% 80%, #7c2ee0 0%, transparent 55%),
+      radial-gradient(circle at 85% 75%, #ff5aa8 0%, transparent 40%),
+      linear-gradient(160deg, #0b0c18 0%, #131234 60%, #0b0c18 100%);
+    background-size: 200% 200%, 200% 200%, 200% 200%, 200% 200%, 100% 100%;
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    0%{ background-position: 0% 0%, 100% 0%, 50% 100%, 100% 100%, 0 0; }
+    100%{ background-position: 20% 30%, 70% 20%, 40% 70%, 80% 60%, 0 0; }
+  }
+  .grain{
+    position:fixed; inset:0; z-index:-1; opacity:0.03; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Glass base ---------- */
+  .glass{
+    position:relative;
+    background: var(--glass-fill);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+    border-radius: var(--radius);
+    border: 1px solid var(--glass-rim-dim);
+    box-shadow:
+      0 8px 32px rgba(0,0,0,0.35),
+      inset 0 1px 0 rgba(255,255,255,0.35),
+      inset 0 0 40px rgba(255,255,255,0.03);
+    transition: transform .35s ease, box-shadow .35s ease, background .35s ease;
+  }
+  .glass::before{
+    content:"";
+    position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 30%);
+    mix-blend-mode: overlay;
+  }
+  .glass:hover{
+    background: var(--glass-fill-strong);
+    transform: translateY(-3px);
+    box-shadow:
+      0 14px 40px rgba(0,0,0,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.45);
+  }
+
+  /* ---------- Nav ---------- */
+  nav.glass{
+    position:fixed; top:20px; left:50%; transform:translateX(-50%);
+    z-index:100;
+    display:flex; align-items:center; gap:28px;
+    padding:12px 26px;
+    border-radius:999px;
+    width:max-content;
+    max-width:92vw;
+  }
+  nav .logo{ font-weight:700; letter-spacing:0.5px; font-size:15px; white-space:nowrap;}
+  nav ul{ list-style:none; display:flex; gap:22px; }
+  nav a{ color:var(--ink-dim); text-decoration:none; font-size:14px; font-weight:500; transition:color .2s;}
+  nav a:hover{ color:var(--ink); }
+
+  section{ padding: 140px 6vw 60px; max-width:1200px; margin:0 auto; }
+  .eyebrow{
+    font-size:13px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-dim);
+    margin-bottom:10px;
+  }
+  h2.title{ font-size:clamp(28px,4vw,42px); font-weight:700; margin-bottom:36px; }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding-top:170px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:22px;}
+  .avatar{
+    width:132px; height:132px; border-radius:40px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:46px; font-weight:700;
+    background: linear-gradient(145deg, rgba(255,255,255,0.25), rgba(255,255,255,0.05));
+  }
+  .hero h1{ font-size:clamp(38px,6vw,64px); font-weight:800; letter-spacing:-1px; }
+  .hero p.role{ color:var(--ink-dim); font-size:18px; max-width:520px; }
+  .btn-row{ display:flex; gap:14px; margin-top:8px; flex-wrap:wrap; justify-content:center; }
+  .btn{
+    padding:14px 28px; border-radius:999px; font-weight:600; font-size:14px;
+    cursor:pointer; border:1px solid var(--glass-rim-dim); text-decoration:none; color:var(--ink);
+  }
+  .btn.primary{ background: linear-gradient(135deg, var(--accent), var(--accent-2)); border:none; box-shadow:0 6px 24px rgba(10,132,255,0.4);}
+  .btn.ghost.glass{ background:var(--glass-fill); }
+
+  /* ---------- About / Education ---------- */
+  .grid-2{ display:grid; grid-template-columns:1.2fr 1fr; gap:24px; }
+  @media(max-width:800px){ .grid-2{ grid-template-columns:1fr; } }
+  .card{ padding:30px; }
+  .info-row{ display:flex; gap:40px; flex-wrap:wrap; margin-top:18px; }
+  .info-row div span{ display:block; color:var(--ink-dim); font-size:12px; margin-bottom:4px;}
+  .edu-card{ padding:22px; margin-bottom:16px; }
+  .edu-card .period{ color:var(--accent); font-weight:700; font-size:13px; margin-bottom:6px; }
+
+  /* ---------- Skills ---------- */
+  .skill-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media(max-width:800px){ .skill-grid{ grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:520px){ .skill-grid{ grid-template-columns:1fr;} }
+  .skill-card{ padding:24px; text-align:center; }
+  .skill-icon{
+    width:52px; height:52px; border-radius:16px; margin:0 auto 14px;
+    display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700;
+    background:linear-gradient(145deg, rgba(255,255,255,0.3), rgba(255,255,255,0.05));
+  }
+  .skill-name{ font-weight:600; margin-bottom:8px; }
+  .badge{
+    display:inline-block; font-size:11px; padding:4px 12px; border-radius:999px; font-weight:700;
+  }
+  .badge.adv{ background:rgba(52,199,89,0.25); color:#8CF0A8; }
+  .badge.mid{ background:rgba(10,132,255,0.25); color:#8FCBFF; }
+  .badge.beg{ background:rgba(191,90,242,0.25); color:#E0AFFB; }
+
+  /* ---------- Projects ---------- */
+  .proj-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media(max-width:900px){ .proj-grid{ grid-template-columns:1fr; } }
+  .proj-card{ overflow:hidden; padding:0; display:flex; flex-direction:column; }
+  .proj-thumb{ height:170px; display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--ink-dim);
+    background:linear-gradient(160deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02)); }
+  .proj-body{ padding:22px; flex:1; display:flex; flex-direction:column; gap:12px; }
+  .proj-tags{ display:flex; gap:8px; flex-wrap:wrap; }
+  .tag{ font-size:11px; padding:4px 10px; border-radius:999px; background:var(--glass-fill); border:1px solid var(--glass-rim-dim); color:var(--ink-dim); }
+  .proj-body h3{ font-size:18px; }
+  .proj-body p{ font-size:13.5px; color:var(--ink-dim); line-height:1.5; }
+  .proj-cta{ margin-top:auto; text-align:center; padding:12px; font-size:13px; font-weight:600; border-top:1px solid var(--glass-rim-dim); cursor:pointer;}
+
+  /* ---------- Contact ---------- */
+  .contact-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media(max-width:800px){ .contact-grid{ grid-template-columns:1fr; } }
+  .contact-card{ padding:28px; text-align:center; }
+  .contact-icon{ font-size:28px; margin-bottom:10px; }
+  .contact-card .label{ font-weight:700; margin-bottom:6px; }
+  .contact-card .value{ color:var(--ink-dim); font-size:13.5px; word-break:break-word; }
+
+  footer{ text-align:center; padding:50px 0 30px; color:var(--ink-dim); font-size:13px; }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="grain"></div>
+
+<nav class="glass">
+  <div class="logo">&lt;SITTHA.S /&gt;</div>
+  <ul>
+    <li><a href="#about">เกี่ยวกับฉัน</a></li>
+    <li><a href="#projects">ผลงาน</a></li>
+    <li><a href="#contact">ติดต่อ</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="avatar glass">T</div>
+  <h1>Hello, I'm Tun</h1>
+  <p class="role">นักศึกษาวิศวกรรมคอมพิวเตอร์ & Web Developer</p>
+  <div class="btn-row">
+    <a href="#contact" class="btn primary">ติดต่อฉัน</a>
+    <a href="#" class="btn ghost glass">ดาวน์โหลด Resume</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="eyebrow">About</div>
+  <h2 class="title">เกี่ยวกับฉัน</h2>
+  <div class="grid-2">
+    <div class="card glass">
+      <p style="line-height:1.8; color:var(--ink-dim);">
+        สวัสดีครับ กระผมเป็นนักศึกษาที่ชื่นชอบการออกแบบและพัฒนาเว็บไซต์ มีความมุ่งมั่นที่จะเรียนรู้เทคโนโลยีใหม่ๆ
+        เพื่อนำมาสร้างสรรค์ผลงานที่ใช้งานได้จริง และพร้อมเรียนรู้สิ่งใหม่ๆ อยู่เสมอ
+      </p>
+      <div class="info-row">
+        <div><span>ชื่อ-นามสกุล</span>นายสิทธา สัจจหทยาศรม</div>
+        <div><span>ชื่อเล่น</span>ทัน</div>
+        <div><span>อายุ</span>21 ปี</div>
+        <div><span>สัญชาติ</span>ไทย</div>
+        <div><span>ศาสนา</span>พุทธ</div>
+      </div>
+    </div>
+    <div>
+      <div class="edu-card glass">
+        <div class="period">พ.ศ. 2566 – ปัจจุบัน</div>
+        <div>มหาวิทยาลัยราชภัฏพิบูลสงคราม<br>คณะเทคโนโลยีอุตสาหกรรม สาขาวิศวกรรมคอมพิวเตอร์</div>
+      </div>
+      <div class="edu-card glass">
+        <div class="period">พ.ศ. 2563 – 2565</div>
+        <div>วิทยาลัยเทคนิคกำแพงเพชร<br>แผนการเรียน ช่างไฟฟ้ากำลัง</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="eyebrow">Skills</div>
+  <h2 class="title">ทักษะความสามารถ</h2>
+  <div class="skill-grid">
+    <div class="skill-card glass"><div class="skill-icon">&lt;/&gt;</div><div class="skill-name">HTML5 & CSS3</div><span class="badge adv">Advanced</span></div>
+    <div class="skill-card glass"><div class="skill-icon">B</div><div class="skill-name">Bootstrap CSS</div><span class="badge adv">Advanced</span></div>
+    <div class="skill-card glass"><div class="skill-icon">Py</div><div class="skill-name">Python Programming</div><span class="badge mid">Intermediate</span></div>
+    <div class="skill-card glass"><div class="skill-icon">✎</div><div class="skill-name">UI/UX & Graphic Design</div><span class="badge mid">Intermediate</span></div>
+    <div class="skill-card glass"><div class="skill-icon">JS</div><div class="skill-name">JavaScript</div><span class="badge beg">Beginner</span></div>
+    <div class="skill-card glass"><div class="skill-icon">C</div><div class="skill-name">C / C++ Programming</div><span class="badge beg">Beginner</span></div>
+  </div>
+  <br>
+  <div class="skill-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="skill-card glass"><div class="skill-icon">⌥</div><div class="skill-name">Git / GitHub</div></div>
+    <div class="skill-card glass"><div class="skill-icon">◆</div><div class="skill-name">Figma</div></div>
+    <div class="skill-card glass"><div class="skill-icon">&gt;_</div><div class="skill-name">VS Code</div></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="eyebrow">Portfolio</div>
+  <h2 class="title">ผลงานของฉัน</h2>
+  <div class="proj-grid">
+    <div class="proj-card glass">
+      <div class="proj-thumb">CPE Project</div>
+      <div class="proj-body">
+        <h3>CPE Chatbot UI & Web Development</h3>
+        <p>ออกแบบและพัฒนาส่วนติดต่อผู้ใช้งาน (UI) สำหรับระบบแชตบอต จำลองในรายวิชาวิศวกรรมคอมพิวเตอร์ เน้นโครงสร้างที่ตอบสนองได้ดี</p>
+        <div class="proj-tags"><span class="tag">HTML5</span><span class="tag">Bootstrap</span><span class="tag">UI/UX</span></div>
+      </div>
+      <div class="proj-cta">ดูรายละเอียดโปรเจกต์</div>
+    </div>
+    <div class="proj-card glass">
+      <div class="proj-thumb">Frontend</div>
+      <div class="proj-body">
+        <h3>Personal Portfolio (Deep Space Theme)</h3>
+        <p>เว็บไซต์ประวัติส่วนตัวและรวบรวมผลงานสไตล์มินิมอลทันสมัย ประยุกต์ใช้ธีมดวงดาวและอวกาศเพื่อสร้างเอกลักษณ์เฉพาะตัว</p>
+        <div class="proj-tags"><span class="tag">HTML5</span><span class="tag">Bootstrap 5</span><span class="tag">JavaScript</span></div>
+      </div>
+      <div class="proj-cta">ดูรายละเอียดโปรเจกต์</div>
+    </div>
+    <div class="proj-card glass">
+      <div class="proj-thumb">React App</div>
+      <div class="proj-body">
+        <h3>Elden Ring Ending Tracker</h3>
+        <p>เว็บแอปพลิเคชันสำหรับติดตามความคืบหน้าเควสไปสู่ฉากจบทั้ง 6 แบบของเกม Elden Ring พร้อมระบบเช็คลิสต์และแถบแสดงความคืบหน้า</p>
+        <div class="proj-tags"><span class="tag">React</span><span class="tag">Tailwind CSS</span><span class="tag">Vercel</span></div>
+      </div>
+      <div class="proj-cta">เข้าชมเว็บไซต์จริง</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="eyebrow">Contact</div>
+  <h2 class="title">ช่องทางการติดต่อ</h2>
+  <p style="color:var(--ink-dim); margin:-20px 0 30px;">หากสนใจร่วมงานหรือสอบถามข้อมูลเพิ่มเติม สามารถติดต่อกระผมได้ตามช่องทางด้านล่างนี้ครับ</p>
+  <div class="contact-grid">
+    <div class="contact-card glass"><div class="contact-icon">✉</div><div class="label">Email</div><div class="value">sithasajhatayssome@gmail.com</div></div>
+    <div class="contact-card glass"><div class="contact-icon">☎</div><div class="label">Phone</div><div class="value">099-373-9421</div></div>
+    <div class="contact-card glass"><div class="contact-icon">⌥</div><div class="label">GitHub</div><div class="value">ดูซอร์สโค้ดโปรเจกต์</div></div>
+  </div>
+</section>
+
+<footer>© 2026 Sittha S. — Built with Liquid Glass UI</footer>
+
+<script>
+  // subtle mouse-follow specular highlight on glass cards
+  document.querySelectorAll('.glass').forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left)/r.width)*100;
+      const y = ((e.clientY - r.top)/r.height)*100;
+      card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.22), var(--glass-fill) 60%)`;
+    });
+    card.addEventListener('mouseleave', ()=>{ card.style.background = 'var(--glass-fill)'; });
+  });
+</script>
+
+</body>
+</html>
