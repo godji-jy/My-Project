@@ -104,7 +104,9 @@
     display:flex; align-items:center; justify-content:center;
     font-size:46px; font-weight:700;
     background: linear-gradient(145deg, rgba(255,255,255,0.25), rgba(255,255,255,0.05));
+    overflow: hidden;
   }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
   .hero h1{ font-size:clamp(38px,6vw,64px); font-weight:800; letter-spacing:-1px; }
   .hero p.role{ color:var(--ink-dim); font-size:18px; max-width:600px; }
   .btn-row{ display:flex; gap:14px; margin-top:8px; flex-wrap:wrap; justify-content:center; }
@@ -151,19 +153,34 @@
   .soft-tag{ font-size: 13px; padding: 8px 16px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: var(--ink); }
 
   /* ---------- Projects ---------- */
-  .proj-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .proj-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-bottom: 30px;}
   @media(max-width:900px){ .proj-grid{ grid-template-columns:1fr; } }
-  .proj-card{ overflow:hidden; padding:0; display:flex; flex-direction:column; }
-  .proj-thumb{ height:150px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 20px;
+  .proj-card{ overflow:hidden; padding:0; display:flex; flex-direction:column; text-decoration: none; color: inherit;}
+  .proj-thumb{ height:160px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 20px; position: relative; overflow: hidden;
     background:linear-gradient(160deg, rgba(10,132,255,0.15), rgba(191,90,242,0.05)); }
-  .proj-thumb .main-t{ font-weight: 800; font-size: 16px; letter-spacing: 0.5px; margin-bottom: 4px;}
-  .proj-thumb .sub-t{ font-size: 12px; color: var(--ink-dim); }
+  .proj-thumb img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0.85; transition: transform 0.5s ease; }
+  .proj-card:hover .proj-thumb img { transform: scale(1.08); }
+  .proj-thumb .thumb-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(11,12,24,0.2), rgba(11,12,24,0.75)); z-index: 1; }
+  .proj-thumb-content { position: relative; z-index: 2; text-align: center; }
+  .proj-thumb .main-t{ font-weight: 800; font-size: 16px; letter-spacing: 0.5px; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.6); }
+  .proj-thumb .sub-t{ font-size: 12px; color: #e1e1e6; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
   .proj-body{ padding:22px; flex:1; display:flex; flex-direction:column; gap:12px; }
+  .proj-role { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent-2); letter-spacing: 0.5px; }
   .proj-tags{ display:flex; gap:6px; flex-wrap:wrap; }
   .tag{ font-size:11px; padding:4px 10px; border-radius:999px; background:var(--glass-fill); border:1px solid var(--glass-rim-dim); color:var(--ink-dim); }
   .proj-body h3{ font-size:17px; font-weight: 700; }
   .proj-body p{ font-size:13.5px; color:var(--ink-dim); line-height:1.6; }
-  .proj-cta{ margin-top:auto; text-align:center; padding:12px; font-size:13px; font-weight:600; border-top:1px solid var(--glass-rim-dim); cursor:pointer;}
+  .proj-outcome { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-rim-dim); padding: 10px; border-radius: 12px; font-size: 12px; margin-top: auto; }
+  .proj-outcome strong { color: #8CF0A8; }
+  .proj-cta{ text-align:center; padding:14px; font-size:13px; font-weight:600; border-top:1px solid var(--glass-rim-dim); transition: background 0.2s; background: rgba(255,255,255,0.02);}
+  .proj-card:hover .proj-cta { background: rgba(10,132,255,0.15); color: #fff; }
+
+  /* ---------- Certificates ---------- */
+  .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .cert-card { display: flex; gap: 18px; align-items: center; padding: 20px; }
+  .cert-img { width: 90px; height: 65px; object-fit: cover; border-radius: 10px; border: 1px solid var(--glass-rim-dim); background: rgba(255,255,255,0.02); flex-shrink: 0; }
+  .cert-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .cert-info p { font-size: 12px; color: var(--ink-dim); }
 
   /* ---------- Contact ---------- */
   .contact-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
@@ -188,12 +205,15 @@
     <li><a href="#about">เกี่ยวกับฉัน</a></li>
     <li><a href="#skills">ทักษะ</a></li>
     <li><a href="#projects">ผลงาน</a></li>
+    <li><a href="#certificates">เกียรติบัตร</a></li>
     <li><a href="#contact">ติดต่อ</a></li>
   </ul>
 </nav>
 
 <section class="hero">
-  <div class="avatar glass">T</div>
+  <div class="avatar glass">
+    <img src="ad1.png" alt="Thanapun Chomjun" onerror="this.style.display='none'; this.parentNode.innerText='T';">
+  </div>
   <h1>Thanapun Chomjun</h1>
   <p class="role">นักพัฒนาระบบ Embedded และ IoT | นักศึกษาภาควิชาวิศวกรรมคอมพิวเตอร์</p>
   <div class="btn-row">
@@ -208,7 +228,7 @@
   <div class="grid-2">
     <div class="card glass">
       <p style="line-height:1.8; color:var(--ink-dim); font-size: 15px;">
-        นักพัฒนาระบบ Embedded และ IoT ที่มีประสบการณ์จริงในการใช้งาน ESP32 และการเชื่อมต่อเซ็นเซอร์ มีทักษะที่โดดเด่นด้านการเขียน Firmware ด้วยภาษา C++ การต่อวงจรฮาร์ดแวร์ การจัดการสถาปัตยกรรมเน็ตเวิร์ก และการออกแบบระบบ IoT แบบครบวงจร (End-to-End IoT System Design)
+        นักศึกษาภาควิชาวิศวกรรมคอมพิวเตอร์ มีความมุ่งมั่นและหลงใหลในการพัฒนาระบบ Embedded Systems และ Internet of Things (IoT) มีความเชี่ยวชาญในการเขียน Firmware ควบคุมไมโครคอนโทรลเลอร์และการต่อวงจรฮาร์ดแวร์เพื่ออ่านค่าจากเซ็นเซอร์ พร้อมความสามารถในการเชื่อมต่อและสตรีมข้อมูลโทรมาตรขึ้นระบบคลาวด์ มีความกระตือรือร้นในการเรียนรู้เทคโนโลยีใหม่ๆ และพร้อมที่จะทำงานร่วมกับผู้อื่นเพื่อแก้ไขปัญหาที่ท้าทายในอุตสาหกรรม
       </p>
       <div class="info-row">
         <div><span>ชื่อ-นามสกุล</span>Thanapun Chomjun</div>
@@ -222,6 +242,7 @@
         <div class="period">2022 – Present</div>
         <div class="degree">Pibulsongkram Rajabhat University</div>
         <div class="major">Bachelor of Engineering in Computer Engineering<br><span style="color: var(--accent-2); font-weight: 600;">Concentration in Robot Automation</span></div>
+        <p style="font-size: 13px; color: var(--ink-dim); margin-top: 10px;">GPAX ทั้งหมด: <strong style="color:#fff;">3.00</strong></p>
       </div>
     </div>
   </div>
@@ -285,6 +306,17 @@
       </div>
       <span class="badge sub">Analysis</span>
     </div>
+
+    <div class="skill-card glass">
+      <div>
+        <div class="skill-header">
+          <div class="skill-icon">📊</div>
+          <div class="skill-name">IIoT & Telemetry</div>
+        </div>
+        <div class="skill-desc">เข้าใจโมเดลสื่อสารข้อมูล ดิจิทัลมอดูเลชัน (ASK/FSK/PSK) รวมถึงการประยุกต์โครงสร้างระบบ SCADA / IIoT เบื้องต้น</div>
+      </div>
+      <span class="badge sub">Engineering</span>
+    </div>
   </div>
 
   <div class="eyebrow" style="margin-top: 50px;">Soft Skills</div>
@@ -304,46 +336,76 @@
 </section>
 
 <section id="projects">
-  <div class="eyebrow">Featured Project</div>
-  <h2 class="title">ระบบตรวจสอบสุขภาพมอเตอร์ (Motor Health Monitoring System)</h2>
+  <div class="eyebrow">Featured Work</div>
+  <h2 class="title">ผลงานที่โดดเด่น (Highlight Projects)</h2>
   <div class="proj-grid">
-    <div class="proj-card glass">
-      <div class="proj-thumb">
-        <div class="main-t">Firmware & Sensor Array</div>
-        <div class="sub-t">Hardware Architecture</div>
-      </div>
-      <div class="proj-body">
-        <h3>ระบบตรวจวัดและประมวลผล</h3>
-        <p>พัฒนาระบบตรวจสอบสุขภาพมอเตอร์แบบ Real-time โดยใช้ ESP32 เป็นหน่วยประมวลผลหลัก ทำการเชื่อมต่อเข้ากับเซ็นเซอร์วัดค่าระดับอุตสาหกรรม ได้แก่ เซ็นเซอร์ Hall, DS18B20, ACS712 และ ADXL345</p>
-        <div class="proj-tags"><span class="tag">ESP32</span><span class="tag">C++</span><span class="tag">Sensors</span><span class="tag">I2C / OneWire</span></div>
-      </div>
-      <div class="proj-cta"></div>
-    </div>
     
-    <div class="proj-card glass">
+    <a href="https://github.com/godji-jy" target="_blank" class="proj-card glass">
+      <div class="proj-thumb">
+        <img src="project-motor.jpg" alt="Motor Monitoring" onerror="this.style.opacity='0';">
+        <div class="proj-thumb-content">
+          <div class="main-t">Motor Health Monitoring System</div>
+          <div class="sub-t">Hardware Architecture</div>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-role">Lead Hardware & Firmware Developer</div>
+        <h3>ระบบตรวจวัดสุขภาพมอเตอร์อัจฉริยะ</h3>
+        <p>ออกแบบกล่อง IoT ประมวลผลด้วย ESP32 ดึงค่าความสั่นสะเทือน อุณหภูมิ และความเร็วรอบ (RPM) ผ่านโปรโตคอล I2C และ OneWire ส่งขึ้นระบบคลาวด์</p>
+        <div class="proj-tags"><span class="tag">ESP32</span><span class="tag">C++</span><span class="tag">I2C / OneWire</span><span class="tag">Firebase</span></div>
+        <div class="proj-outcome">🎯 <strong>ผลลัพธ์:</strong> มอเตอร์ได้รับการตรวจสอบสดแบบ 24 ชม. ป้องกันความเสียหายล่วงหน้า</div>
+      </div>
+      <div class="proj-cta">🐙 ดูโค้ดและรายละเอียดบน GitHub</div>
+    </a>
+    
+    <a href="https://github.com/godji-jy" target="_blank" class="proj-card glass">
       <div class="proj-thumb" style="background:linear-gradient(160deg, rgba(191,90,242,0.15), rgba(10,132,255,0.05));">
-        <div class="main-t">Firebase Realtime DB</div>
-        <div class="sub-t">Cloud & Telemetry Data</div>
+        <img src="project-feeder.jpg" alt="Pet Feeder" onerror="this.style.opacity='0';">
+        <div class="proj-thumb-content">
+          <div class="main-t">Smart Pet Feeder System</div>
+          <div class="sub-t">Full-Stack IoT Solution</div>
+        </div>
       </div>
       <div class="proj-body">
-        <h3>ระบบส่งข้อมูลและคลาวด์</h3>
-        <p>ออกแบบอัลกอริทึมจัดการข้อมูลโทรมาตร ทำการวัดและแปลงค่าเพื่อส่งข้อมูลความเร็วรอบ (RPM), อุณหภูมิ, กระแสไฟฟ้า และค่าความสั่นสะเทือน ขึ้นระบบคลาวด์ Firebase RTDB แบบ Real-time</p>
-        <div class="proj-tags"><span class="tag">Firebase RTDB</span><span class="tag">JSON</span><span class="tag">HTTPS</span><span class="tag">Data Stream</span></div>
+        <div class="proj-role">Full-Stack IoT Developer</div>
+        <h3>ระบบเครื่องให้อาหารแมวอัจฉริยะ</h3>
+        <p>ควบคุมกลไกเซอร์โวมอเตอร์จ่ายอาหาร และใช้เซ็นเซอร์อัลตราโซนิกวัดปริมาณคงเหลือ เชื่อมต่อ Firebase มอนิเตอร์ผ่านหน้าเว็บ Dashboard เรียลไทม์</p>
+        <div class="proj-tags"><span class="tag">Firebase RTDB</span><span class="tag">Servo</span><span class="tag">HC-SR04</span><span class="tag">Dashboard</span></div>
+        <div class="proj-outcome">🎯 <strong>ผลลัพธ์:</strong> ระบบทำงานแม่นยำ แจ้งเตือนผู้ใช้บนหน้าเว็บทันทีเมื่ออาหารต่ำกว่า 20%</div>
       </div>
-      <div class="proj-cta"></div>
-    </div>
+      <div class="proj-cta">🐙 ดูโค้ดและรายละเอียดบน GitHub</div>
+    </a>
 
-    <div class="proj-card glass">
+    <a href="https://github.com/godji-jy" target="_blank" class="proj-card glass">
       <div class="proj-thumb" style="background:linear-gradient(160deg, rgba(52,199,89,0.15), rgba(10,132,255,0.05));">
-        <div class="main-t">Dashboard & Smart Alert</div>
-        <div class="sub-t">System Optimization</div>
+        <img src="project-roman.jpg" alt="Roman Match Master" onerror="this.style.opacity='0';">
+        <div class="proj-thumb-content">
+          <div class="main-t">Roman Match Master</div>
+          <div class="sub-t">Web Application (Academic)</div>
+        </div>
       </div>
       <div class="proj-body">
-        <h3>การแจ้งเตือนและการสตรีม</h3>
-        <p>สร้างระบบแจ้งเตือนทันทีเมื่อตรวจพบค่าที่ผิดปกติ พร้อมส่งข้อมูลเข้า Dashboard เพื่อแบ่งระดับสถานะการทำงาน (ปกติ / เสี่ยงเสียหาย / ต้องซ่อมบำรุง) และออกแบบ Firmware ให้ทำงานเสถียร ไม่ค้างแม้เซ็นเซอร์หลุด</p>
-        <div class="proj-tags"><span class="tag">Dashboard</span><span class="tag">Alert System</span><span class="tag">Fail-Safe Firmware</span></div>
+        <div class="proj-role">Software Developer</div>
+        <h3>เกมจับคู่การ์ดตัวเลขโรมันและอารบิก</h3>
+        <p>เกมทดสอบความจำดีไซน์การ์ดพลิก 3D สวยงาม พัฒนาด้วย Vanilla JavaScript โค้ดคลีน มินิมอล รองรับการแสดงผลสมบูรณ์แบบบนมือถือ พร้อมเปิดบน GitHub Pages</p>
+        <div class="proj-tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">GitHub Pages</span></div>
+        <div class="proj-outcome">🎯 <strong>ผลลัพธ์:</strong> เกมจับคู่อินเตอร์เฟซลื่นไหล เล่นง่าย ได้ความรู้เรื่องตัวเลขโรมัน</div>
       </div>
-      <div class="proj-cta"></div>
+      <div class="proj-cta">🐙 ลองเล่นหรือดูโค้ดบน GitHub</div>
+    </a>
+  </div>
+</section>
+
+<section id="certificates">
+  <div class="eyebrow">Credentials</div>
+  <h2 class="title">เกียรติบัตร & ใบรับรอง</h2>
+  <div class="cert-grid">
+    <div class="glass cert-card">
+      <img src="as2.png" class="cert-img" alt="Python Essentials 1" onerror="this.style.display='none';">
+      <div class="cert-info">
+        <h4>Python Essentials 1</h4>
+        <p>การรับรองทักษะพื้นฐานและโครงสร้างภาษา Python คอร์สสากล</p>
+      </div>
     </div>
   </div>
 </section>
